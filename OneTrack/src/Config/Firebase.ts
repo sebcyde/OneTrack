@@ -9,18 +9,16 @@ import {
 	onAuthStateChanged,
 } from 'firebase/auth';
 
-const config = {
-	firebase: {
-		apiKey: 'AIzaSyBWxMuu0BJr3FOjUj0U7pXCq4ZjqUfkqn0',
-		authDomain: 'projectz-d8fdf.firebaseapp.com',
-		projectId: 'projectz-d8fdf',
-		storageBucket: 'projectz-d8fdf.appspot.com',
-		messagingSenderId: '122607333826',
-		appId: '1:122607333826:web:538eb444c27c2f6329e65b',
-	},
+const firebaseConfig = {
+	apiKey: 'AIzaSyDHdmWWI4_sGEo_7xEXHKnIICreHze8ins',
+	authDomain: 'onetrack-ba113.firebaseapp.com',
+	projectId: 'onetrack-ba113',
+	storageBucket: 'onetrack-ba113.appspot.com',
+	messagingSenderId: '936654947760',
+	appId: '1:936654947760:web:ce5a2e1a8a1134dc748275',
 };
 
-export const app = initializeApp(config.firebase);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 

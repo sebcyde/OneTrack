@@ -6,6 +6,7 @@ type Props = {};
 function Dashboard({}: Props) {
 	return (
 		<div>
+			<h2 className="DashboardHeader">Welcome Back</h2>
 			<StackedBar />
 		</div>
 	);

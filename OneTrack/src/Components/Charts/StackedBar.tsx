@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import LoadingScreen from '../../Pages/LoadingScreen/LoadingScreen';
@@ -75,24 +75,18 @@ type Props = {};
 function StackedBar() {
 	const [Loading, setLoading] = useState<boolean>(true);
 
+	useEffect(() => {
+		setTimeout(() => {
+			setLoading(false);
+		}, 2000);
+	}, []);
+
 	return (
 		<>
 			{Loading ? (
 				<LoadingScreen />
 			) : (
-				<div
-					className="chart-container"
-					style={{
-						position: 'relative',
-						width: '90vw',
-						height: 'fit-content',
-						margin: '20px auto',
-						borderRadius: '10px',
-						border: '1px solid blue',
-						padding: '10px',
-						boxShadow: '4px 4px 4px',
-					}}
-				>
+				<div className="chart-container">
 					<Bar options={options} data={data} className="StackedBarContainer" />
 				</div>
 			)}

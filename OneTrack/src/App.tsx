@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MainNavbar from './Components/MainNavbar/MainNavbar';
-import Dashboard from './Components/Charts/StackedBar';
+import Dashboard from './Pages/Dashboard/Dashboard';
+
 import LoadingScreen from './Pages/LoadingScreen/LoadingScreen';
 
 function App() {
