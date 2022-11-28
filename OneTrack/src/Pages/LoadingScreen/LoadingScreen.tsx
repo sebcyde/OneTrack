@@ -13,7 +13,7 @@ function LoadingScreen() {
 			}}
 		>
 			<FadeLoader
-				color={'#2EC4B6'}
+				color={'#03045e'}
 				aria-label="Loading Spinner"
 				data-testid="loader"
 			/>
