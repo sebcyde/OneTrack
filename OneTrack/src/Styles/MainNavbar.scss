@@ -1,0 +1,14 @@
+.MainNavbar {
+	background-color: #03045e;
+	color: white;
+	.container {
+		a,
+		button,
+		span {
+			color: white;
+		}
+		button {
+			border: 1px solid white;
+		}
+	}
+}
