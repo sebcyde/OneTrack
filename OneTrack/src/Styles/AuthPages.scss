@@ -1,0 +1,96 @@
+.SignInContainer,
+.SignUnContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	// background-image: linear-gradient(
+	// 	109.6deg,
+	// 	rgba(156, 252, 248, 1) 11.2%,
+	// 	rgba(110, 123, 251, 1) 91.1%
+	// );
+	background-image: url('../assets/BG/abstract1.png');
+	background-size: cover;
+
+	> div {
+		// border: 1px solid black;
+		background-color: white;
+		width: 90%;
+		height: 46%;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-evenly;
+		border-radius: 15px;
+		letter-spacing: 1px;
+		position: relative;
+		z-index: 1;
+		background: inherit;
+		overflow: hidden;
+
+		&::before {
+			content: '';
+			position: absolute;
+			background: inherit;
+			z-index: -1;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.6);
+			filter: blur(10px);
+			margin: -20px;
+		}
+
+		h2 {
+			margin: 0;
+			font-weight: 600;
+			font-size: 30px;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			width: 80%;
+			height: 100%;
+			justify-content: space-evenly;
+			margin: 0 auto;
+
+			input {
+				border-radius: 5px;
+				background-color: transparent;
+				padding: 5px;
+				color: black;
+				text-align: center;
+				border: none;
+				border-bottom: 1px solid gray;
+
+				&::placeholder {
+					color: black;
+				}
+				&:focus-visible {
+					border: 1px solid gray;
+				}
+			}
+
+			button {
+				border: none;
+				background: #00b4d8;
+				text-transform: uppercase;
+				border-radius: 20px;
+				color: white;
+				font-weight: 600;
+			}
+
+			a {
+				color: black;
+				text-transform: capitalize;
+			}
+		}
+	}
+}
