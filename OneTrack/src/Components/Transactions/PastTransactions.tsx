@@ -1,9 +1,13 @@
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 import { db } from '../../Config/Firebase';
 
 function PastTransactions() {
+	const [Loadding, setLoadding] = useState<boolean>(true);
+	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
 
@@ -53,7 +57,18 @@ function PastTransactions() {
 		PullExpenses();
 	}, []);
 
-	return <div>PastTransactions</div>;
+	return (
+		<div>
+			<h1>PastTransactions</h1>
+			<Button
+				onClick={() => {
+					navigate('/newtransaction');
+				}}
+			>
+				Add Transaction
+			</Button>
+		</div>
+	);
 }
 
 export default PastTransactions;

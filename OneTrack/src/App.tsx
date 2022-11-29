@@ -7,6 +7,7 @@ import LoadingScreen from './Pages/LoadingScreen/LoadingScreen';
 import SignUpComponent from './Pages/SignUp/SignUpComponent';
 import SignInComponent from './Pages/SignIn/SignInComponent';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import NewTransaction from './Pages/Transactions/NewTransaction';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -45,6 +46,7 @@ function App() {
 						<Route path="/signup" element={<SignUpComponent />} />
 						<Route path="/signin" element={<SignInComponent />} />
 						<Route path="/transactions" element={<Transactions />} />
+						<Route path="/newtransaction" element={<NewTransaction />} />
 					</Routes>
 				</>
 			)}
