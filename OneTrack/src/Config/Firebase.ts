@@ -27,7 +27,7 @@ export const SignUp = async (
 	auth: any,
 	email: string,
 	password: string,
-	name: string
+	Name: string
 ) => {
 	try {
 		const UserCred = await createUserWithEmailAndPassword(
@@ -36,15 +36,45 @@ export const SignUp = async (
 			password
 		);
 		const user = UserCred.user;
-		console.log(`${name}Sign Up Successful:`, user);
+
+		console.log(`${Name}Sign Up Successful:`, user);
+		Name = Name.charAt(0).toUpperCase() + Name.slice(1);
 
 		// Create a DB instance for new user
 		await setDoc(doc(db, `Users/${user.uid}`), {
 			UserEmail: user.email,
-			Name: name,
+			Name: Name,
 			DisplayPicture: user.photoURL,
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
+		});
+
+		const month = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December',
+		];
+
+		const d = new Date();
+		let name = month[d.getMonth()].slice(0, 3);
+		const Month = name.charAt(0).toUpperCase() + name.slice(1);
+
+		// Create Income / Expenses Collections
+		await setDoc(doc(db, `Users/${user.uid}/Transactions/Income`), {
+			[Month]: [],
+		});
+
+		await setDoc(doc(db, `Users/${user.uid}/Transactions/Expenses`), {
+			[Month]: [],
 		});
 
 		console.log('User Creation Successful:');
