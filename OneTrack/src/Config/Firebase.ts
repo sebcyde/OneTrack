@@ -23,7 +23,12 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 // Sign Up New Users
-export const SignUp = async (auth: any, email: string, password: string) => {
+export const SignUp = async (
+	auth: any,
+	email: string,
+	password: string,
+	name: string
+) => {
 	try {
 		const UserCred = await createUserWithEmailAndPassword(
 			auth,
@@ -31,19 +36,15 @@ export const SignUp = async (auth: any, email: string, password: string) => {
 			password
 		);
 		const user = UserCred.user;
-		console.log('Signed up as:', user);
+		console.log(`${name}Sign Up Successful:`, user);
 
+		// Create a DB instance for new user
 		await setDoc(doc(db, `Users/${user.uid}`), {
 			UserEmail: user.email,
-			Username: user.displayName,
+			Name: name,
 			DisplayPicture: user.photoURL,
 			CreationDate: user.metadata.creationTime,
-			// UserLists: { Favourites: [] },
 			UID: user.uid,
-		});
-
-		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {
-			Favourites: [],
 		});
 
 		console.log('User Creation Successful:');
@@ -60,7 +61,7 @@ export const SignIn = async (auth: any, email: string, password: string) => {
 		.then((userCredential) => {
 			// Signed in
 			const user = userCredential.user;
-			console.log('Signed in as:', user);
+			console.log(`Sign In Successful:`, user);
 		})
 		.catch((error) => {
 			const errorCode = error.code;

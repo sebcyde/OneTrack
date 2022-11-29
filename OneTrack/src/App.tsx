@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MainNavbar from './Components/MainNavbar/MainNavbar';
 import Dashboard from './Pages/Dashboard/Dashboard';
-
+import Transactions from './Pages/Transactions/Transactions';
 import LoadingScreen from './Pages/LoadingScreen/LoadingScreen';
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
 					<MainNavbar />
 					<Routes>
 						<Route path="/" element={<Dashboard />} />
+						<Route path="/transactions" element={<Transactions />} />
 					</Routes>
 				</>
 			)}
