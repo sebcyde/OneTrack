@@ -1,14 +1,23 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import React, { useEffect, useRef } from 'react';
+import {
+	Chart as ChartJS,
+	ArcElement,
+	Tooltip,
+	Legend,
+	CategoryScale,
+	LinearScale,
+} from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../Config/Firebase';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale);
+
 type Props = {};
 
 function DoughnutChart({}: Props) {
+	const DoughnutRef = useRef();
 	const auth = getAuth();
 	const user = auth.currentUser;
 
@@ -61,7 +70,7 @@ function DoughnutChart({}: Props) {
 
 	return (
 		<div className="doughnut-chart-container">
-			<Doughnut data={data} />;
+			<Doughnut data={data} ref={DoughnutRef} />;
 		</div>
 	);
 }

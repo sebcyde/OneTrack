@@ -1,12 +1,16 @@
+import { Chart } from 'chart.js';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { db } from '../../Config/Firebase';
+import LoadingScreen from '../../Pages/LoadingScreen/LoadingScreen';
+import LineChart from '../Charts/LineChart';
 
 function PastTransactions() {
-	const [Loadding, setLoadding] = useState<boolean>(true);
+	const [Loading, setLoading] = useState<boolean>(true);
+	let chartStatus = Chart.getChart('Doughnut');
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
@@ -53,21 +57,33 @@ function PastTransactions() {
 	// 	}
 	// };
 	useEffect(() => {
-		PullIncome();
-		PullExpenses();
+		PullIncome()
+			.then(() => {
+				PullExpenses();
+			})
+			.then(() => {
+				setLoading(false);
+			});
 	}, []);
 
 	return (
-		<div>
-			<h1>PastTransactions</h1>
-			<Button
-				onClick={() => {
-					navigate('/newtransaction');
-				}}
-			>
-				Add Transaction
-			</Button>
-		</div>
+		<>
+			{Loading ? (
+				<LoadingScreen />
+			) : (
+				<div>
+					<h1>PastTransactions</h1>
+					<LineChart UserID={user!.uid} AmountOfMonths={3} />
+					<Button
+						onClick={() => {
+							navigate('/newtransaction');
+						}}
+					>
+						Add Transaction
+					</Button>
+				</div>
+			)}
+		</>
 	);
 }
 

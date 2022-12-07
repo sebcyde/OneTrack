@@ -37,7 +37,7 @@ export const SignUp = async (
 		);
 		const user = UserCred.user;
 
-		console.log(`${Name}Sign Up Successful:`, user);
+		console.log(`${Name} Sign Up Successful:`, user);
 		Name = Name.charAt(0).toUpperCase() + Name.slice(1);
 
 		// Create a DB instance for new user
@@ -70,11 +70,16 @@ export const SignUp = async (
 
 		// Create Income / Expenses Collections
 		await setDoc(doc(db, `Users/${user.uid}/Transactions/Income`), {
-			[Month]: [],
+			[Month]: [{}],
 		});
 
 		await setDoc(doc(db, `Users/${user.uid}/Transactions/Expenses`), {
-			[Month]: [],
+			[Month]: [{}],
+		});
+
+		// Create Portfolio Collections
+		await setDoc(doc(db, `Users/${user.uid}/Stocks/Portfolio`), {
+			Tickers: ['AAPL', 'MSFT', 'GOOGL'],
 		});
 
 		console.log('User Creation Successful:');
