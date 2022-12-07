@@ -7,6 +7,8 @@ import {
 	getDocs,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import StockCardSlider from '../../Components/MyPortfolio/StockCardSlider';
 import { db } from '../../Config/Firebase';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
@@ -14,27 +16,25 @@ type Props = {};
 
 function MyPortfolio({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
-	const [StockLists, setStockLists] = useState<DocumentData | undefined>();
+	const [StockLists, setStockLists] = useState<any[]>([]);
 	const auth = getAuth();
 	const user = auth.currentUser;
+	const ShowLists = () => {
+		console.log('Stock Lists:', StockLists);
+	};
 
 	const PullStockLists = async () => {
 		if (user) {
-			// console.log('Pulling Stock Lists');
-			// let StockListsRef = doc(db, `Users/${user.uid}/Stocks/Por`);
-			// let StockListsSnap = await getDoc(StockListsRef);
-			// if (StockListsSnap.exists()) {
-			// 	const StockListsData = StockListsSnap.data();
-			// 	console.log('Stock Lists Data:', StockListsData);
-			// 	setStockLists(StockListsData);
-			// } else {
-			// 	console.log('Portfolio Data Pull Failed!');
-			// }
-
 			const querySnapshot = await getDocs(
 				collection(db, `Users/${user.uid}/Stocks/`)
 			);
+
 			querySnapshot.forEach((doc) => {
+				setStockLists([
+					...StockLists,
+					{ Name: doc.id, Symbols: doc.data().Tickers },
+				]);
+
 				console.log(doc.id, ' => ', doc.data());
 			});
 		}
@@ -53,6 +53,20 @@ function MyPortfolio({}: Props) {
 			) : (
 				<>
 					<h2>Portfolios</h2>
+					<Button onClick={ShowLists}>Stock Lists</Button>
+					<div className="SliderContainer">
+						{StockLists.map((List, index: number) => {
+							console.log('List:', List);
+							return (
+								<StockCardSlider
+									key={index}
+									ListName={List.Name}
+									Tickers={List.Symbols}
+									Interval="1d"
+								/>
+							);
+						})}
+					</div>
 				</>
 			)}
 		</div>
